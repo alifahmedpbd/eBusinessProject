@@ -1,0 +1,49 @@
+{% load static %}
+
+<header id="header" class="header sticky-top" style="background:#2b0000;">
+  <div class="container d-flex align-items-center justify-content-between">
+
+    <!-- Logo -->
+    <a href="{% url 'home' %}" class="logo text-decoration-none">
+      <h1 class="text-white m-0">
+        <span style="color:#0d6efd;">e</span>Business
+      </h1>
+    </a>
+
+    <!-- Menu -->
+    <nav>
+      <ul class="d-flex gap-4 list-unstyled m-0 align-items-center">
+
+        <li><a href="{% url 'home' %}" class="text-white text-decoration-none">Home</a></li>
+        <li><a href="{% url 'home' %}#about" class="text-white text-decoration-none">About</a></li>
+        <li><a href="{% url 'home' %}#services" class="text-white text-decoration-none">Services</a></li>
+        <li><a href="{% url 'portfolio' %}" class="text-white text-decoration-none">Portfolio</a></li>
+        <li><a href="{% url 'team_view' %}" class="text-white text-decoration-none">Team</a></li>
+        <li><a href="{% url 'home' %}#contact" class="text-white text-decoration-none">Contact</a></li>
+
+        {% if user.is_authenticated %}
+          <li class="text-white">|</li>
+          <li class="text-white">Hi, {{ user.username }}</li>
+          <li>
+            <a href="{% url 'logout' %}" class="btn btn-danger btn-sm">
+              Logout
+            </a>
+          </li>
+        {% else %}
+          <li>
+            <a href="{% url 'login' %}" class="btn btn-outline-light btn-sm">
+              Login
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'signup' %}" class="btn btn-primary btn-sm">
+              Sign Up
+            </a>
+          </li>
+        {% endif %}
+
+      </ul>
+    </nav>
+
+  </div>
+</header>

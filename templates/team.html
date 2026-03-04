@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="team" class="team section">
+
+  <!-- Section Title -->
+  <div class="container section-title text-center" data-aos="fade-up">
+    <h2>Team</h2>
+    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+  </div>
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+    <div class="row gy-4 justify-content-center">
+
+      {% for member in members %}
+      <div class="col-xl-3 col-lg-4 col-md-6">
+
+        <div class="team-card text-center">
+
+          <div class="profile-image position-relative">
+
+            {% if member.profile_image %}
+              <img src="{{ member.profile_image.url }}" 
+                   class="img-fluid rounded" 
+                   alt="{{ member.first_name }} {{ member.last_name }}">
+            {% else %}
+              <img src="{% static 'img/person/person-default.webp' %}" 
+                   class="img-fluid rounded" 
+                   alt="No Image">
+            {% endif %}
+
+            <div class="role-badge">
+              {{ member.role }}
+            </div>
+
+            <div class="social-icons mt-2">
+              {% if member.linkedin_url %}
+                <a href="{{ member.linkedin_url }}" target="_blank">
+                  <i class="bi bi-linkedin"></i>
+                </a>
+              {% endif %}
+              {% if member.twitter_url %}
+                <a href="{{ member.twitter_url }}" target="_blank">
+                  <i class="bi bi-twitter-x"></i>
+                </a>
+              {% endif %}
+              {% if member.instagram_url %}
+                <a href="{{ member.instagram_url }}" target="_blank">
+                  <i class="bi bi-instagram"></i>
+                </a>
+              {% endif %}
+            </div>
+
+          </div>
+
+          <div class="member-info mt-3">
+            <h4>{{ member.first_name }} {{ member.last_name }}</h4>
+            <p>{{ member.bio }}</p>
+
+            <div class="admin-links mt-2">
+              <a href="{% url 'updateTeamMember' member.id %}" 
+                 class="btn btn-sm btn-primary">
+                 Edit
+              </a>
+
+              <span class="mx-2">|</span>
+
+              <a href="{% url 'deleteTeamMember' member.id %}" 
+                 class="btn btn-sm btn-danger">
+                 Delete
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      {% empty %}
+      <div class="col-12 text-center">
+        <p>No team members added yet.</p>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <!-- Add Button -->
+    <div class="text-center mt-4">
+      <a href="{% url 'createTeamMember' %}" 
+         class="btn btn-success">
+         Add Team Member
+      </a>
+    </div>
+
+  </div>
+
+</section>
+<div class="row gy-4 justify-content-center" style="display:flex;"></div>
+
+{% endblock %}

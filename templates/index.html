@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home | eBusiness{% endblock %}
+
+{% block content %}
+
+<section id="hero" class="hero section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h2>Strategic Solutions for Business Growth</h2>
+        <p>Welcome to our website.</p>
+      </div>
+      <div class="col-lg-6">
+        <img src="{% static 'img/about/about-8.webp' %}" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
