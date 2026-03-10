@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
 
@@ -26,4 +28,16 @@ urlpatterns = [
     path('createPortfolio/', views.createPortfolio, name='createPortfolio'),
     path('updatePortfolio/<str:pk>/', views.updatePortfolio, name="updatePortfolio"),
     path('deletePortfolio/<str:pk>/', views.deletePortfolio, name="deletePortfolio"),
+    path('portfolio/<int:pk>/', views.portfolioDetails, name='portfolioDetails'),
+    path('portfolio/category/<str:category>/',
+     views.portfolioCategory,
+     name="portfolioCategory"),
+
+    # Contact
+    path('contact/', views.contact_view, name='contact'),
+    path('about/', views.about, name='about')
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -54,6 +54,7 @@
             </div>
 
           </div>
+          {% if user.is_superuser %}
 
           <div class="member-info mt-3">
             <h4>{{ member.first_name }} {{ member.last_name }}</h4>
@@ -73,6 +74,7 @@
               </a>
             </div>
           </div>
+          {% endif %}
 
         </div>
 
@@ -84,7 +86,7 @@
       {% endfor %}
 
     </div>
-
+{% if user.is_superuser %}
     <!-- Add Button -->
     <div class="text-center mt-4">
       <a href="{% url 'createTeamMember' %}" 
@@ -92,7 +94,7 @@
          Add Team Member
       </a>
     </div>
-
+{% endif %}
   </div>
 
 </section>

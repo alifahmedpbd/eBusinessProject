@@ -71,3 +71,27 @@ def save(self, *args, **kwargs):
 
     def __str__(self):
         return self.username
+    
+
+class Contact(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
+from django.db import models
+
+class About(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    image_main = models.ImageField(upload_to='about/')
+    image_small = models.ImageField(upload_to='about/')
+    experience_years = models.CharField(max_length=10)
+    phone = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.title

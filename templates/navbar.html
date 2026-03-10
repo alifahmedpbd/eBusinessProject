@@ -11,15 +11,71 @@
     </a>
 
     <!-- Menu -->
-    <nav>
-      <ul class="d-flex gap-4 list-unstyled m-0 align-items-center">
+<nav>
+  <ul class="d-flex gap-4 list-unstyled m-0 align-items-center">
 
-        <li><a href="{% url 'home' %}" class="text-white text-decoration-none">Home</a></li>
-        <li><a href="{% url 'home' %}#about" class="text-white text-decoration-none">About</a></li>
-        <li><a href="{% url 'home' %}#services" class="text-white text-decoration-none">Services</a></li>
-        <li><a href="{% url 'portfolio' %}" class="text-white text-decoration-none">Portfolio</a></li>
-        <li><a href="{% url 'team_view' %}" class="text-white text-decoration-none">Team</a></li>
-        <li><a href="{% url 'home' %}#contact" class="text-white text-decoration-none">Contact</a></li>
+    <li>
+      <a href="{% url 'home' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">
+        Home
+      </a>
+    </li>
+
+    <li>
+      <a href="{% url 'about' %}" class="nav-link">
+        About
+      </a>
+    </li>
+
+    <li>
+      <a href="{% url 'home' %}#services" class="nav-link">
+        Services
+      </a>
+    </li>
+
+    <li>
+      <a href="{% url 'portfolio' %}" class="nav-link">
+        Portfolio
+      </a>
+    </li>
+
+    <li>
+      <a href="{% url 'team_view' %}" class="nav-link">
+        Team
+      </a>
+    </li>
+
+<li class="dropdown">
+  <a href="#" class="nav-link">Dropdown</a>
+
+  <ul class="dropdown-menu-custom">
+
+    <li><a href="#" class="dropdown-item">Dropdown 1</a></li>
+
+    <li class="deep-dropdown">
+      <a href="#" class="dropdown-item">Deep Dropdown ▸</a>
+
+      <ul class="deep-dropdown-menu">
+        <li><a href="#">Deep Dropdown 1</a></li>
+        <li><a href="#">Deep Dropdown 2</a></li>
+        <li><a href="#">Deep Dropdown 3</a></li>
+        <li><a href="#">Deep Dropdown 4</a></li>
+        <li><a href="#">Deep Dropdown 5</a></li>
+      </ul>
+
+    </li>
+
+    <li><a href="#" class="dropdown-item">Dropdown 2</a></li>
+    <li><a href="#" class="dropdown-item">Dropdown 3</a></li>
+    <li><a href="#" class="dropdown-item">Dropdown 4</a></li>
+
+  </ul>
+</li>
+
+    <li>
+      <a href="{% url 'contact' %}" class="nav-link">
+        Contact
+      </a>
+    </li>
 
         {% if user.is_authenticated %}
           <li class="text-white">|</li>

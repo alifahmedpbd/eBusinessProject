@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section id="about" class="about section light-background">
+
+<div class="container section-title">
+<h2>About</h2>
+</div>
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<!-- LEFT TEXT -->
+<div class="col-lg-5">
+
+<h2>{{ about.title }}</h2>
+
+<p>
+{{ about.description }}
+</p>
+
+<div class="contact-info">
+<p><b>Call us:</b> {{ about.phone }}</p>
+</div>
+
+</div>
+
+
+<!-- RIGHT IMAGES -->
+<div class="col-lg-7">
+
+<div class="image-wrapper">
+
+<img src="{{ about.image_main.url }}" class="main-image img-fluid">
+
+<img src="{{ about.image_small.url }}" class="small-image img-fluid">
+
+<div class="experience-badge">
+<h3>{{ about.experience_years }}+</h3>
+<p>Years<br>Experience</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

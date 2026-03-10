@@ -35,6 +35,8 @@
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
   --nav-dropdown-color: #555555; /* Used for navigation links of the dropdown items in the navigation menu. */
   --nav-dropdown-hover-color: #036dda; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-dropdown-background-color: #000;
+  --nav-dropdown-color: #fff;
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
@@ -142,12 +144,18 @@ h6 {
 /*--------------------------------------------------------------
 # Global Header
 --------------------------------------------------------------*/
+#header{
+  background: rgba(0,0,0,0.9);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
 .header {
-  --background-color: #0f0000;
+  background: rgba(0,0,0,0.9);
   --default-color: #ffffff;
   --heading-color: #ffffff;
   color: var(--default-color);
-  background-color: var(--background-color);
+  background-color: #000;
   padding: 15px 0;
   transition: all 0.5s;
   z-index: 997;
@@ -488,6 +496,105 @@ h6 {
     display: block;
   }
 }
+
+nav ul li a.nav-link{
+  position: relative;
+  color: white;
+  text-decoration: none;
+  padding-bottom: 5px;
+}
+
+nav ul li a.nav-link::after{
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #0d6efd;
+  left: 0;
+  bottom: 0;
+  transition: 0.3s;
+}
+
+nav ul li a.nav-link:hover::after{
+  width: 100%;
+}
+
+nav ul li a.nav-link.active::after{
+  width: 100%;
+}
+
+.dropdown{
+  position: relative;
+}
+
+.dropdown-menu-custom{
+  display: none;
+  position: absolute;
+  background: #2b0000;
+  padding: 10px;
+  list-style: none;
+}
+
+.dropdown:hover .dropdown-menu-custom{
+  display: block;
+}
+
+.dropdown-menu-custom li a{
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 5px 10px;
+}
+
+.dropdown{
+  position: relative;
+}
+
+.dropdown-menu-custom{
+  display: none;
+  position: absolute;
+  background: #0a0a0a;
+  padding: 10px;
+  list-style: none;
+  min-width: 180px;
+}
+
+.dropdown:hover .dropdown-menu-custom{
+  display: block;
+}
+
+.deep-dropdown{
+  position: relative;
+}
+
+.deep-dropdown-menu{
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background: #0a0a0a;
+  padding: 10px;
+  list-style: none;
+  min-width: 180px;
+}
+
+.deep-dropdown:hover .deep-dropdown-menu{
+  display: block;
+}
+
+.dropdown-menu-custom a,
+.deep-dropdown-menu a{
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 5px 10px;
+}
+
+.dropdown-menu-custom a:hover,
+.deep-dropdown-menu a:hover{
+  color: #0d6efd;
+}
+
 
 /*--------------------------------------------------------------
 # Global Footer
@@ -4174,4 +4281,58 @@ section,
 
 .contact-2 .php-email-form button[type=submit]:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
+
+#header {
+  background: #000 !important;
+}
+
+.header {
+  background: #000 !important;
+}
+
+
+/* ABOUT IMAGE SECTION */
+
+.image-wrapper{
+position: relative;
+max-width: 650px;
+margin-left: auto;
+}
+
+.main-image{
+width: 100%;
+border-radius: 20px;
+}
+
+.small-image{
+position: absolute;
+left: -80px;
+top: 120px;
+width: 260px;
+border-radius: 15px;
+border: 8px solid #fff;
+box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.experience-badge{
+position: absolute;
+right: -20px;
+bottom: 40px;
+background: #0d6efd;
+color: #fff;
+padding: 20px 30px;
+border-radius: 10px;
+text-align: center;
+}
+
+.experience-badge h3{
+font-size: 32px;
+margin:0;
+font-weight: bold;
+}
+
+.experience-badge p{
+margin:0;
+font-size:14px;
 }

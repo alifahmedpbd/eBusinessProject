@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import TeamMember, Portfolio
+from .models import TeamMember, Portfolio, Contact, About
 from .forms import TeamMemberForm, PortfolioForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import CustomUserCreationForm
@@ -130,10 +130,34 @@ def deleteTeamMember(request, pk):
     context = {'object': member}
     return render(request, 'delete_team_member.html', context)
 
-@login_required
 def portfolio_view(request):
-    portfolios = Portfolio.objects.all()
-    return render(request, 'portfolio.html', {'portfolios': portfolios})
+
+    app = Portfolio.objects.filter(category='app')[:1]
+    product = Portfolio.objects.filter(category='product')[:1]
+    branding = Portfolio.objects.filter(category='branding')[:1]
+    books = Portfolio.objects.filter(category='books')[:1]
+
+    portfolios = list(app) + list(product) + list(branding) + list(books)
+
+    context = {
+        'portfolios': portfolios
+    }
+
+    return render(request, 'portfolio.html', context)
+
+
+
+# Category Page (show all items)
+def portfolioCategory(request, category):
+
+    portfolios = Portfolio.objects.filter(category=category)
+
+    context = {
+        'portfolios': portfolios,
+        'category': category
+    }
+
+    return render(request, 'portfolio_category.html', context)
 
 @superuser_required
 def createPortfolio(request):
@@ -171,4 +195,36 @@ def deletePortfolio(request, pk):
     context = {'object': portfolio}
     return render(request, 'delete_portfolio.html', context)
 
+@superuser_required
+def portfolioDetails(request, pk):
+    portfolio = Portfolio.objects.get(id=pk)
+    context = {'portfolio': portfolio}
+    return render(request, 'portfolio-details.html', context)
 
+@superuser_required
+def contact_view(request):
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+
+        Contact.objects.create(
+            name=name,
+            email=email,
+            subject=subject,
+            message=message
+        )
+
+        return render(request, 'contact.html', {'success': True})
+
+    return render(request, 'contact.html')
+
+@superuser_required
+def about(request):
+    about = About.objects.first()
+    context = {
+        'about': about
+    }
+    return render(request, 'about.html', context)
