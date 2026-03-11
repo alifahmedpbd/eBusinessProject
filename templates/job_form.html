@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="section">
+<div class="container">
+
+<h2>Add New Job</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="mb-3">
+<label>Job Title</label>
+<input type="text" name="title" class="form-control">
+</div>
+
+<div class="mb-3">
+<label>Description</label>
+<textarea name="description" class="form-control"></textarea>
+</div>
+
+<div class="mb-3">
+<label>Location</label>
+<input type="text" name="location" class="form-control">
+</div>
+
+<div class="mb-3">
+<label>Requirements</label>
+<textarea name="requirements" class="form-control"></textarea>
+</div>
+
+<button type="submit" class="btn btn-success">
+Add Job
+</button>
+
+</form>
+
+</div>
+</section>
+
+{% endblock %}

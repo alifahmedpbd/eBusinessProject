@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section id="services" class="services section">
+
+<div class="container section-title" data-aos="fade-up">
+<h2>Services</h2>
+<p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+</div>
+
+<div class="container" data-aos="fade-up" data-aos-delay="100">
+
+<div class="row gy-4 justify-content-center">
+
+{% for service in services %}
+
+<div class="col-lg-4 col-md-6" data-aos="fade-up">
+
+<article class="service-item">
+
+<span class="service-icon rounded-circle">
+<i class="bi {{ service.icon }}"></i>
+</span>
+
+<h3>
+<a href="{% url 'serviceDetails' service.id %}">
+{{ service.title }} <span>{{ service.highlight }}</span>
+</a>
+</h3>
+
+<p>
+{{ service.description }}
+</p>
+
+<a href="{% url 'serviceDetails' service.id %}" 
+class="card-action rounded-circle d-flex align-items-center justify-content-center">
+
+<i class="bi bi-arrow-up-right"></i>
+
+</a>
+
+</article>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

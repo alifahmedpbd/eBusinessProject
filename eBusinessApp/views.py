@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
-from .models import TeamMember, Portfolio, Contact, About
-from .forms import TeamMemberForm, PortfolioForm
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import TeamMember, Portfolio, Contact, About, Service, Job, JobApplication
+from .forms import TeamMemberForm, PortfolioForm, CustomUserCreationForm
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .forms import CustomUserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 # Create your views here.
@@ -21,10 +20,6 @@ def home(request):
 
 
 
-
-
-# Signup
-
 def signup_view(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -41,7 +36,7 @@ def signup_view(request):
     return render(request, 'signup.html', {'form': form})
 
 
-# Login
+
 def login_view(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -61,14 +56,14 @@ def login_view(request):
     return render(request, 'login.html')
 
 
-# Logout
+
 @login_required
 def logout_view(request):
     logout(request)
     return redirect('signup')
 
 
-# Admin Only View Example
+
 def is_admin(user):
     return user.is_superuser
 
@@ -147,7 +142,6 @@ def portfolio_view(request):
 
 
 
-# Category Page (show all items)
 def portfolioCategory(request, category):
 
     portfolios = Portfolio.objects.filter(category=category)
@@ -201,7 +195,7 @@ def portfolioDetails(request, pk):
     context = {'portfolio': portfolio}
     return render(request, 'portfolio-details.html', context)
 
-@superuser_required
+
 def contact_view(request):
 
     if request.method == 'POST':
@@ -221,10 +215,87 @@ def contact_view(request):
 
     return render(request, 'contact.html')
 
-@superuser_required
+
 def about(request):
     about = About.objects.first()
     context = {
         'about': about
     }
     return render(request, 'about.html', context)
+
+def service_view(request):
+    services = Service.objects.all()
+    return render(request, 'service.html', {'services': services})
+
+
+def service_details(request, pk):
+    service = Service.objects.get(id=pk)
+    return render(request, 'service_details.html', {'service': service})
+
+def faq(request):
+    return render(request, 'faq.html')
+
+
+
+def career(request):
+
+    jobs = Job.objects.all()
+
+    context = {
+        'jobs': jobs
+    }
+
+    return render(request, 'career.html', context)
+
+@superuser_required
+def create_job(request):
+
+    if request.method == 'POST':
+
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        location = request.POST.get('location')
+        requirements = request.POST.get('requirements')
+
+        Job.objects.create(
+            title=title,
+            description=description,
+            location=location,
+            requirements=requirements
+        )
+
+        messages.success(request, "Job added successfully!")
+
+        return redirect('career')
+
+    return render(request,'job_form.html')
+
+
+def job_application(request, id):
+
+    job = get_object_or_404(Job, id=id)
+
+    if request.method == 'POST':
+
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        message = request.POST.get('message')
+        cv = request.FILES.get('cv')
+
+        JobApplication.objects.create(
+            job=job,
+            name=name,
+            email=email,
+            phone=phone,
+            message=message,
+            cv=cv
+        )
+
+        messages.success(request, "Your application is submitted successfully!")
+
+        return redirect('career')
+
+    context = {'job': job}
+
+    return render(request,'jobapplication.html',context)

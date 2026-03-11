@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="section">
+<div class="container">
+
+<h2 class="mb-4">Career Opportunities</h2>
+
+{% if user.is_superuser %}
+<a href="{% url 'create_job' %}" class="btn btn-success mb-4">
+Add Job
+</a>
+{% endif %}
+
+<div class="row">
+
+{% for job in jobs %}
+
+<div class="col-md-6 mb-4">
+
+<div class="card shadow-sm h-100">
+
+<div class="card-body">
+
+<h4>{{ job.title }}</h4>
+
+<p>{{ job.description }}</p>
+
+<p><b>Location:</b> {{ job.location }}</p>
+
+<p><b>Requirements:</b> {{ job.requirements }}</p>
+
+<a href="{% url 'job_application' job.id %}" class="btn btn-primary">
+Apply Now
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+</section>
+
+{% endblock %}

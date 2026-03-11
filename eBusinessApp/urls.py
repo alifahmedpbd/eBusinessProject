@@ -6,36 +6,43 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 
-    path('', views.root_redirect, name='root'),
+
     path('home/', views.home, name='home'),
 
-    # Authentication
     path('signup/', views.signup_view, name='signup'),
-    path('login/', views.login_view, name='login'),
+    path('', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
 
-    # Admin dashboard
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
 
-    # Team
+
     path('team_view/', views.team_view, name='team_view'),
     path('createTeamMember/', views.createTeamMember, name='createTeamMember'),
     path('updateTeamMember/<str:pk>/', views.updateTeamMember, name="updateTeamMember"),
     path('deleteTeamMember/<str:pk>/', views.deleteTeamMember, name="deleteTeamMember"),
 
-    # Portfolio
+
     path('portfolio/', views.portfolio_view, name='portfolio'),
     path('createPortfolio/', views.createPortfolio, name='createPortfolio'),
     path('updatePortfolio/<str:pk>/', views.updatePortfolio, name="updatePortfolio"),
     path('deletePortfolio/<str:pk>/', views.deletePortfolio, name="deletePortfolio"),
     path('portfolio/<int:pk>/', views.portfolioDetails, name='portfolioDetails'),
-    path('portfolio/category/<str:category>/',
-     views.portfolioCategory,
-     name="portfolioCategory"),
+    path('portfolio/category/<str:category>/', views.portfolioCategory,name="portfolioCategory"),
 
-    # Contact
+    
     path('contact/', views.contact_view, name='contact'),
-    path('about/', views.about, name='about')
+
+    path('about/', views.about, name='about'),
+
+    path('services/', views.service_view, name='services'),
+    path('services/<int:pk>/', views.service_details, name='serviceDetails'),
+
+    path('faq/', views.faq, name='faq'),
+   
+    path('career/', views.career, name='career'),
+    path('job-application/<int:id>/', views.job_application, name='job_application'),
+    path('create-job/', views.create_job, name='create_job'),
+
 
 ]
 

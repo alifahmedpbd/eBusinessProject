@@ -27,10 +27,25 @@
   {% include 'navbar.html' %}
 
   <!-- Main Content -->
-  <main class="main">
-    {% block content %}
-    {% endblock %}
-  </main>
+<main class="main">
+
+{% if messages %}
+<div class="container mt-3">
+
+  {% for message in messages %}
+  <div class="alert alert-success alert-dismissible fade show">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+  {% endfor %}
+
+</div>
+{% endif %}
+
+{% block content %}
+{% endblock %}
+
+</main>
 
   <!-- Footer -->
   {% include 'footer.html' %}
