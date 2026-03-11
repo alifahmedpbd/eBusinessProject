@@ -36,12 +36,16 @@ urlpatterns = [
 
     path('services/', views.service_view, name='services'),
     path('services/<int:pk>/', views.service_details, name='serviceDetails'),
+    path('service/edit/<int:pk>/', views.update_service, name='update_service'),
+    path('service/delete/<int:pk>/', views.delete_service, name='delete_service'),
 
     path('faq/', views.faq, name='faq'),
    
     path('career/', views.career, name='career'),
     path('job-application/<int:id>/', views.job_application, name='job_application'),
     path('create-job/', views.create_job, name='create_job'),
+    path('job/edit/<int:pk>/', views.update_job, name='update_job'),
+    path('job/delete/<int:pk>/', views.delete_job, name='delete_job'),
 
 
 ]

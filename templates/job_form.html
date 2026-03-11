@@ -4,7 +4,11 @@
 <section class="section">
 <div class="container">
 
+{% if job %}
+<h2>Edit Job</h2>
+{% else %}
 <h2>Add New Job</h2>
+{% endif %}
 
 <form method="POST">
 
@@ -12,26 +16,30 @@
 
 <div class="mb-3">
 <label>Job Title</label>
-<input type="text" name="title" class="form-control">
+<input type="text" name="title" class="form-control" value="{{ job.title|default:'' }}">
 </div>
 
 <div class="mb-3">
 <label>Description</label>
-<textarea name="description" class="form-control"></textarea>
+<textarea name="description" class="form-control">{{ job.description|default:'' }}</textarea>
 </div>
 
 <div class="mb-3">
 <label>Location</label>
-<input type="text" name="location" class="form-control">
+<input type="text" name="location" class="form-control" value="{{ job.location|default:'' }}">
 </div>
 
 <div class="mb-3">
 <label>Requirements</label>
-<textarea name="requirements" class="form-control"></textarea>
+<textarea name="requirements" class="form-control">{{ job.requirements|default:'' }}</textarea>
 </div>
 
 <button type="submit" class="btn btn-success">
+{% if job %}
+Update Job
+{% else %}
 Add Job
+{% endif %}
 </button>
 
 </form>

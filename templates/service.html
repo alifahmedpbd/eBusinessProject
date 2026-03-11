@@ -36,10 +36,27 @@
 
 <a href="{% url 'serviceDetails' service.id %}" 
 class="card-action rounded-circle d-flex align-items-center justify-content-center">
-
 <i class="bi bi-arrow-up-right"></i>
-
 </a>
+
+
+{% if user.is_superuser %}
+
+<div class="mt-3 text-center">
+
+<a href="{% url 'update_service' service.id %}" 
+class="btn btn-warning btn-sm">
+Edit
+</a>
+
+<a href="{% url 'delete_service' service.id %}" 
+class="btn btn-danger btn-sm">
+Delete
+</a>
+
+</div>
+
+{% endif %}
 
 </article>
 

@@ -232,6 +232,42 @@ def service_details(request, pk):
     service = Service.objects.get(id=pk)
     return render(request, 'service_details.html', {'service': service})
 
+@superuser_required
+def update_service(request, pk):
+
+    service = get_object_or_404(Service, id=pk)
+
+    if request.method == 'POST':
+
+        service.title = request.POST.get('title')
+        service.highlight = request.POST.get('highlight')
+        service.description = request.POST.get('description')
+        service.icon = request.POST.get('icon')
+
+        service.save()
+
+        messages.success(request, "Service updated successfully!")
+
+        return redirect('services')
+
+    context = {'service': service}
+
+    return render(request, 'edit_service_form.html', context)
+
+@superuser_required
+def delete_service(request, pk):
+
+    service = get_object_or_404(Service, id=pk)
+
+    if request.method == 'POST':
+        service.delete()
+        messages.success(request, "Service deleted successfully!")
+        return redirect('services')
+
+    context = {'service': service}
+
+    return render(request, 'delete_service.html', context)
+
 def faq(request):
     return render(request, 'faq.html')
 
@@ -269,6 +305,43 @@ def create_job(request):
         return redirect('career')
 
     return render(request,'job_form.html')
+
+
+@superuser_required
+def update_job(request, pk):
+
+    job = get_object_or_404(Job, id=pk)
+
+    if request.method == 'POST':
+
+        job.title = request.POST.get('title')
+        job.description = request.POST.get('description')
+        job.location = request.POST.get('location')
+        job.requirements = request.POST.get('requirements')
+
+        job.save()
+
+        messages.success(request, "Job updated successfully!")
+
+        return redirect('career')
+
+    context = {'job': job}
+
+    return render(request, 'job_form.html', context)
+
+@superuser_required
+def delete_job(request, pk):
+
+    job = get_object_or_404(Job, id=pk)
+
+    if request.method == 'POST':
+        job.delete()
+        messages.success(request, "Job deleted successfully!")
+        return redirect('career')
+
+    context = {'job': job}
+
+    return render(request, 'delete_job.html', context)
 
 
 def job_application(request, id):

@@ -16,14 +16,14 @@
 
     <p class="mb-4">
       Are you sure you want to delete 
-      <strong>"{{ object }}"</strong> ?
+      <strong>"{{ service.title }}"</strong> ?
     </p>
 
     <form method="POST">
       {% csrf_token %}
 
       <div class="d-flex justify-content-center gap-3">
-        <a href="{% url 'portfolio' %}" 
+        <a href="{% url 'services' %}" 
            class="btn btn-secondary px-4">
            Cancel
         </a>

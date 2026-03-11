@@ -34,6 +34,18 @@ Add Job
 Apply Now
 </a>
 
+{% if user.is_superuser %}
+
+<a href="{% url 'update_job' job.id %}" class="btn btn-warning btn-sm">
+Edit
+</a>
+
+<a href="{% url 'delete_job' job.id %}" class="btn btn-danger btn-sm">
+Delete
+</a>
+
+{% endif %}
+
 </div>
 
 </div>
@@ -43,6 +55,8 @@ Apply Now
 {% endfor %}
 
 </div>
+
+
 
 </div>
 </section>
