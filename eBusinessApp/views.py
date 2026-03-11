@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import TeamMember, Portfolio, Contact, About, Service, Job, JobApplication
-from .forms import TeamMemberForm, PortfolioForm, CustomUserCreationForm
+from .forms import TeamMemberForm, PortfolioForm, ServiceForm, JobForm, CustomUserCreationForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -182,6 +182,7 @@ def updatePortfolio(request, pk):
 
 @superuser_required
 def deletePortfolio(request, pk):
+    
     portfolio = Portfolio.objects.get(id=pk)
     if request.method == 'POST':
         portfolio.delete()
@@ -233,26 +234,38 @@ def service_details(request, pk):
     return render(request, 'service_details.html', {'service': service})
 
 @superuser_required
+def create_service(request):
+
+    form = ServiceForm()
+
+    if request.method == 'POST':
+        form = ServiceForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Service added successfully!")
+            return redirect('services')
+
+    return render(request, 'service_form.html', {'form': form})
+
+
+@superuser_required
 def update_service(request, pk):
 
     service = get_object_or_404(Service, id=pk)
 
+    form = ServiceForm(instance=service)
+
     if request.method == 'POST':
 
-        service.title = request.POST.get('title')
-        service.highlight = request.POST.get('highlight')
-        service.description = request.POST.get('description')
-        service.icon = request.POST.get('icon')
+        form = ServiceForm(request.POST, instance=service)
 
-        service.save()
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Service updated successfully!")
+            return redirect('services')
 
-        messages.success(request, "Service updated successfully!")
-
-        return redirect('services')
-
-    context = {'service': service}
-
-    return render(request, 'edit_service_form.html', context)
+    return render(request, 'service_form.html', {'form': form})
 
 @superuser_required
 def delete_service(request, pk):
@@ -283,51 +296,38 @@ def career(request):
 
     return render(request, 'career.html', context)
 
+
 @superuser_required
 def create_job(request):
 
+    form = JobForm()
+
     if request.method == 'POST':
+        form = JobForm(request.POST)
 
-        title = request.POST.get('title')
-        description = request.POST.get('description')
-        location = request.POST.get('location')
-        requirements = request.POST.get('requirements')
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Job added successfully!")
+            return redirect('career')
 
-        Job.objects.create(
-            title=title,
-            description=description,
-            location=location,
-            requirements=requirements
-        )
-
-        messages.success(request, "Job added successfully!")
-
-        return redirect('career')
-
-    return render(request,'job_form.html')
-
+    return render(request,'job_form.html',{'form':form})
 
 @superuser_required
 def update_job(request, pk):
 
     job = get_object_or_404(Job, id=pk)
 
+    form = JobForm(instance=job)
+
     if request.method == 'POST':
+        form = JobForm(request.POST, instance=job)
 
-        job.title = request.POST.get('title')
-        job.description = request.POST.get('description')
-        job.location = request.POST.get('location')
-        job.requirements = request.POST.get('requirements')
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Job updated successfully!")
+            return redirect('career')
 
-        job.save()
-
-        messages.success(request, "Job updated successfully!")
-
-        return redirect('career')
-
-    context = {'job': job}
-
-    return render(request, 'job_form.html', context)
+    return render(request, 'job_form.html', {'form': form})
 
 @superuser_required
 def delete_job(request, pk):

@@ -4,45 +4,55 @@
 <section class="section">
 <div class="container">
 
-{% if job %}
-<h2>Edit Job</h2>
+<div class="card p-4">
+
+<h3>
+
+{% if form.instance.id %}
+Edit Job
 {% else %}
-<h2>Add New Job</h2>
+Add Job
 {% endif %}
+
+</h3>
 
 <form method="POST">
 
 {% csrf_token %}
 
 <div class="mb-3">
-<label>Job Title</label>
-<input type="text" name="title" class="form-control" value="{{ job.title|default:'' }}">
+<label>Title</label>
+{{ form.title }}
 </div>
 
 <div class="mb-3">
 <label>Description</label>
-<textarea name="description" class="form-control">{{ job.description|default:'' }}</textarea>
+{{ form.description }}
 </div>
 
 <div class="mb-3">
 <label>Location</label>
-<input type="text" name="location" class="form-control" value="{{ job.location|default:'' }}">
+{{ form.location }}
 </div>
 
 <div class="mb-3">
 <label>Requirements</label>
-<textarea name="requirements" class="form-control">{{ job.requirements|default:'' }}</textarea>
+{{ form.requirements }}
 </div>
 
 <button type="submit" class="btn btn-success">
-{% if job %}
+
+{% if form.instance.id %}
 Update Job
 {% else %}
 Add Job
 {% endif %}
+
 </button>
 
 </form>
+
+</div>
 
 </div>
 </section>

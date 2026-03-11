@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import TeamMember, Portfolio, CustomUser
+from .models import TeamMember, Portfolio, CustomUser, Service, Job
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 
@@ -23,6 +23,18 @@ class PortfolioForm(ModelForm):
     class Meta:
         model = Portfolio
         fields = ['title', 'description', 'image', 'category']
+
+
+class ServiceForm(ModelForm):
+    class Meta:
+        model = Service
+        fields = ['title', 'highlight', 'description', 'icon']
+
+
+class JobForm(ModelForm):
+    class Meta:
+        model = Job
+        fields = ['title', 'description', 'location', 'requirements']
 
 
 

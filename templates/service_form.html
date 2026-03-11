@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="section">
+<div class="container">
+
+<div class="row justify-content-center">
+<div class="col-md-6">
+
+<div class="card shadow">
+<div class="card-body">
+
+<h3 class="mb-4 text-center">
+{% if form.instance.id %}
+Edit Service
+{% else %}
+Add New Service
+{% endif %}
+</h3>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="mb-3">
+<label class="form-label">Title</label>
+{{ form.title }}
+</div>
+
+<div class="mb-3">
+<label class="form-label">Highlight</label>
+{{ form.highlight }}
+</div>
+
+<div class="mb-3">
+<label class="form-label">Description</label>
+{{ form.description }}
+</div>
+
+<div class="mb-3">
+<label class="form-label">Icon</label>
+{{ form.icon }}
+</div>
+
+<button type="submit" class="btn btn-success">
+
+{% if form.instance.id %}
+Update Service
+{% else %}
+Add Service
+{% endif %}
+
+</button>
+
+<a href="{% url 'services' %}" class="btn btn-secondary">
+Cancel
+</a>
+
+</form>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</section>
+
+{% endblock %}
